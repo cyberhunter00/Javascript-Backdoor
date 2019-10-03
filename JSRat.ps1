@@ -20,10 +20,10 @@ function Receive-Request
 }
 
 $listener = New-Object System.Net.HttpListener
-$listener.Prefixes.Add('http://+:80/') 
+$listener.Prefixes.Add('http://+:4444/') 
 
-netsh advfirewall firewall delete rule name="JS 80" | Out-Null
-netsh advfirewall firewall add rule name="JS 80" dir=in action=allow protocol=TCP localport=80 | Out-Null
+netsh advfirewall firewall delete rule name="JS 4444" | Out-Null
+netsh advfirewall firewall add rule name="JS 4444" dir=in action=allow protocol=TCP localport=80 | Out-Null
 
 $listener.Start()
 'Listening ...'
