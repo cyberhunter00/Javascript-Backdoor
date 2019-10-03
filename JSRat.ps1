@@ -1,5 +1,5 @@
 
-$Server = '127.0.0.1' #Listening IP. Change This.
+$Server = '0.0.0.0' #Listening IP. Change This.
 
 function Receive-Request 
 {
